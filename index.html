@@ -4,31 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>REPAVE — Papel que volta à vida</title>
+  <title>REPAVE — Reciclando papel, plantando futuro</title>
+  <meta name="description" content="REPAVE: projeto de reciclagem de papel e papel-semente para escolas, comunidades e municípios.">
 
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            repave: {
-              50: "#f0fdf4",
-              100: "#dcfce7",
-              500: "#22c55e",
-              600: "#16a34a",
-              700: "#15803d",
-              800: "#166534",
-              900: "#14532d"
-            }
+          fontFamily: {
+            sans: ['Inter', 'Arial', 'sans-serif']
           }
         }
       }
     }
   </script>
 
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Ícones -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
 
   <style>
     html {
@@ -36,37 +31,45 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
     }
 
-    .gradient {
-      background: linear-gradient(135deg, #14532d, #16a34a);
+    .gradient-bg {
+      background:
+        radial-gradient(circle at top left, rgba(34,197,94,.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(16,185,129,.12), transparent 35%);
+    }
+
+    .hero-gradient {
+      background:
+        linear-gradient(135deg, #052e16 0%, #14532d 45%, #166534 100%);
     }
 
     .card-hover {
-      transition: .25s ease;
+      transition: transform .25s ease, box-shadow .25s ease;
     }
 
     .card-hover:hover {
       transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,.10);
     }
 
-    .faq-content {
+    .faq-answer {
       max-height: 0;
       overflow: hidden;
       transition: max-height .3s ease;
     }
 
-    .faq-item.active .faq-content {
-      max-height: 300px;
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-icon {
+      transition: transform .3s ease;
     }
 
     .faq-item.active .faq-icon {
       transform: rotate(180deg);
-    }
-
-    .faq-icon {
-      transition: .25s ease;
     }
 
     .seed {
@@ -88,690 +91,579 @@
 <body class="bg-gray-50 text-gray-800">
 
   <!-- ================= HEADER ================= -->
-
-  <header class="bg-white shadow-sm sticky top-0 z-50">
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-5">
+      <div class="h-16 flex items-center justify-between">
 
-      <div class="h-20 flex items-center justify-between">
-
-        <a href="#inicio" class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-xl bg-green-600 text-white flex items-center justify-center">
+        <a href="#inicio" class="flex items-center gap-2">
+          <div class="w-10 h-10 rounded-xl bg-green-600 text-white flex items-center justify-center">
             <i data-lucide="leaf"></i>
           </div>
 
           <div>
-            <h1 class="text-xl font-black text-green-800">
-              REPAVE
-            </h1>
-
-            <p class="text-xs text-gray-500">
-              Papel que volta à vida
+            <span class="font-black text-xl text-green-700">REPAVE</span>
+            <p class="text-[10px] text-gray-500 -mt-1">
+              Reciclando para transformar
             </p>
           </div>
         </a>
 
         <!-- Desktop -->
         <nav class="hidden md:flex items-center gap-7 text-sm font-semibold">
-          <a href="#calculadora" class="hover:text-green-600">Calculadora</a>
-          <a href="#problema" class="hover:text-green-600">Problema</a>
-          <a href="#processo" class="hover:text-green-600">Processo</a>
-          <a href="#produtos" class="hover:text-green-600">Produtos</a>
-          <a href="#prefeitura" class="hover:text-green-600">Prefeituras</a>
-          <a href="#faq" class="hover:text-green-600">Dúvidas</a>
+          <a href="#inicio" class="hover:text-green-600 transition">Início</a>
+          <a href="#problema" class="hover:text-green-600 transition">Problema</a>
+          <a href="#processo" class="hover:text-green-600 transition">Processo</a>
+          <a href="#produtos" class="hover:text-green-600 transition">Produtos</a>
+          <a href="#prefeituras" class="hover:text-green-600 transition">Prefeituras</a>
+          <a href="#faq" class="hover:text-green-600 transition">FAQ</a>
+
+          <a href="#contato"
+             class="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-full transition">
+            Fale conosco
+          </a>
         </nav>
 
-        <a
-          href="#contato"
-          class="hidden md:block bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-bold transition">
-          Seja parceiro
-        </a>
-
-        <!-- Mobile -->
+        <!-- Mobile button -->
         <button
-          id="menuBtn"
-          class="md:hidden p-2"
-          aria-label="Abrir menu">
+          id="menuButton"
+          type="button"
+          aria-label="Abrir menu"
+          class="md:hidden p-2 rounded-lg hover:bg-gray-100">
           <i data-lucide="menu"></i>
         </button>
-
       </div>
 
       <!-- Mobile menu -->
-      <div id="mobileMenu" class="hidden md:hidden pb-5">
+      <nav id="mobileMenu" class="hidden md:hidden pb-5">
+        <div class="flex flex-col gap-2 text-sm font-semibold">
 
-        <div class="flex flex-col gap-4 font-semibold">
+          <a href="#inicio" class="mobile-link px-4 py-3 rounded-lg hover:bg-green-50">
+            Início
+          </a>
 
-          <a href="#calculadora" class="mobile-link">Calculadora</a>
-          <a href="#problema" class="mobile-link">Problema</a>
-          <a href="#processo" class="mobile-link">Processo</a>
-          <a href="#produtos" class="mobile-link">Produtos</a>
-          <a href="#prefeitura" class="mobile-link">Prefeituras</a>
-          <a href="#faq" class="mobile-link">Dúvidas</a>
-          <a href="#contato" class="mobile-link text-green-600">Seja parceiro</a>
+          <a href="#problema" class="mobile-link px-4 py-3 rounded-lg hover:bg-green-50">
+            Problema
+          </a>
+
+          <a href="#processo" class="mobile-link px-4 py-3 rounded-lg hover:bg-green-50">
+            Processo
+          </a>
+
+          <a href="#produtos" class="mobile-link px-4 py-3 rounded-lg hover:bg-green-50">
+            Produtos
+          </a>
+
+          <a href="#prefeituras" class="mobile-link px-4 py-3 rounded-lg hover:bg-green-50">
+            Prefeituras
+          </a>
+
+          <a href="#faq" class="mobile-link px-4 py-3 rounded-lg hover:bg-green-50">
+            FAQ
+          </a>
+
+          <a href="#contato"
+             class="mobile-link bg-green-600 text-white px-4 py-3 rounded-lg text-center">
+            Fale conosco
+          </a>
 
         </div>
-
-      </div>
-
+      </nav>
     </div>
   </header>
 
 
   <!-- ================= HERO ================= -->
-
   <main>
 
-    <section id="inicio" class="gradient text-white">
+    <section id="inicio" class="hero-gradient text-white pt-32 pb-20">
+      <div class="max-w-7xl mx-auto px-5">
 
-      <div class="max-w-7xl mx-auto px-5 py-24">
-
-        <div class="grid lg:grid-cols-2 gap-14 items-center">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
 
           <div>
 
-            <span class="inline-flex items-center gap-2 bg-white/15 px-4 py-2 rounded-full text-sm mb-6">
-              <i data-lucide="recycle" class="w-4 h-4"></i>
-              Economia circular
-            </span>
+            <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 mb-6">
+              <span class="w-2 h-2 rounded-full bg-green-300"></span>
+              Projeto de empreendedorismo sustentável
+            </div>
 
-            <h2 class="text-4xl md:text-6xl font-black leading-tight mb-6">
-              Não jogue fora o amanhã.
-              <span class="text-green-200">
-                Recicle o seu papel.
-              </span>
-            </h2>
+            <h1 class="text-4xl md:text-6xl font-black leading-tight">
+              Reciclar papel.
+              <span class="text-green-300">Plantar futuro.</span>
+            </h1>
 
-            <p class="text-lg md:text-xl text-green-50 leading-relaxed mb-8">
-              O REPAVE transforma papel usado em novos produtos,
-              como folhas recicladas, cadernos sustentáveis e
-              papel-semente.
+            <p class="mt-6 text-green-50 text-lg md:text-xl leading-relaxed max-w-xl">
+              O REPAVE transforma papéis que seriam descartados em novas folhas
+              utilizáveis e também desenvolve o papel-semente: um produto que
+              pode ganhar uma nova vida depois do uso.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
 
-              <a
-                href="#processo"
-                class="bg-white text-green-800 px-6 py-4 rounded-xl font-bold text-center hover:bg-green-50 transition">
+              <a href="#processo"
+                 class="bg-white text-green-800 font-bold px-6 py-3 rounded-full text-center hover:bg-green-50 transition">
                 Conheça o projeto
               </a>
 
-              <a
-                href="#calculadora"
-                class="border border-white/40 px-6 py-4 rounded-xl font-bold text-center hover:bg-white/10 transition">
-                Calcular impacto
+              <a href="#calculadora"
+                 class="border border-white/40 px-6 py-3 rounded-full text-center hover:bg-white/10 transition">
+                Calcule seu impacto
               </a>
 
             </div>
-
           </div>
 
 
-          <!-- Hero visual -->
+          <!-- Hero card -->
+          <div class="relative">
 
-          <div class="flex justify-center">
+            <div class="bg-white/10 border border-white/20 rounded-3xl p-8 backdrop-blur">
 
-            <div class="relative">
-
-              <div class="w-72 h-72 md:w-96 md:h-96 bg-white/10 rounded-full flex items-center justify-center">
-
-                <div class="w-52 h-52 md:w-64 md:h-64 bg-white rounded-3xl shadow-2xl rotate-3 flex flex-col items-center justify-center text-green-800">
-
-                  <i data-lucide="file-text" class="w-20 h-20 mb-3"></i>
-
-                  <span class="font-black text-2xl">
-                    REPAVE
-                  </span>
-
-                  <span class="text-sm text-gray-500 mt-1">
-                    Papel renovado
-                  </span>
-
+              <div class="flex justify-center mb-7">
+                <div class="seed w-28 h-28 bg-green-400/20 rounded-full flex items-center justify-center">
+                  <i data-lucide="sprout" class="w-16 h-16 text-green-300"></i>
                 </div>
-
               </div>
 
-              <div class="seed absolute -top-2 -right-2 bg-yellow-300 text-green-900 p-4 rounded-2xl shadow-lg">
-                <i data-lucide="sprout"></i>
-              </div>
+              <h2 class="text-2xl font-bold text-center">
+                Do papel ao futuro
+              </h2>
 
-              <div class="absolute -bottom-3 -left-3 bg-white text-green-800 p-4 rounded-2xl shadow-lg">
-                <i data-lucide="recycle"></i>
-              </div>
+              <p class="text-green-100 text-center mt-3">
+                Um ciclo onde o resíduo deixa de ser apenas lixo
+                e pode se transformar em uma nova oportunidade.
+              </p>
 
             </div>
 
           </div>
 
         </div>
-
       </div>
-
     </section>
 
 
-    <!-- ================= NÚMEROS ================= -->
-
+    <!-- ================= STATS ================= -->
     <section class="bg-white border-b">
-
       <div class="max-w-7xl mx-auto px-5 py-10">
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-          <div>
-            <div class="text-3xl font-black text-green-700">
-              ♻️
-            </div>
-
-            <p class="font-bold mt-2">
-              Reutilização
-            </p>
-
-            <p class="text-sm text-gray-500">
-              de papel descartado
-            </p>
+          <div class="text-center">
+            <p class="text-3xl font-black text-green-700">♻️</p>
+            <p class="font-bold mt-2">Reutilização</p>
+            <p class="text-sm text-gray-500">do papel descartado</p>
           </div>
 
-          <div>
-            <div class="text-3xl font-black text-green-700">
-              🌱
-            </div>
-
-            <p class="font-bold mt-2">
-              Papel-semente
-            </p>
-
-            <p class="text-sm text-gray-500">
-              com possibilidade de plantio
-            </p>
+          <div class="text-center">
+            <p class="text-3xl font-black text-green-700">🌱</p>
+            <p class="font-bold mt-2">Papel-semente</p>
+            <p class="text-sm text-gray-500">com possibilidade de plantio</p>
           </div>
 
-          <div>
-            <div class="text-3xl font-black text-green-700">
-              📚
-            </div>
-
-            <p class="font-bold mt-2">
-              Educação
-            </p>
-
-            <p class="text-sm text-gray-500">
-              sustentabilidade na escola
-            </p>
+          <div class="text-center">
+            <p class="text-3xl font-black text-green-700">🏫</p>
+            <p class="font-bold mt-2">Educação</p>
+            <p class="text-sm text-gray-500">ambiental nas escolas</p>
           </div>
 
-          <div>
-            <div class="text-3xl font-black text-green-700">
-              🌎
-            </div>
-
-            <p class="font-bold mt-2">
-              Economia circular
-            </p>
-
-            <p class="text-sm text-gray-500">
-              menos desperdício
-            </p>
+          <div class="text-center">
+            <p class="text-3xl font-black text-green-700">🌎</p>
+            <p class="font-bold mt-2">Impacto</p>
+            <p class="text-sm text-gray-500">ambiental positivo</p>
           </div>
 
         </div>
 
       </div>
-
     </section>
 
 
-    <!-- ================= CALCULADORA ================= -->
+    <!-- ================= CALCULATOR ================= -->
+    <section id="calculadora" class="py-20 gradient-bg">
 
-    <section id="calculadora" class="py-24">
+      <div class="max-w-5xl mx-auto px-5">
 
-      <div class="max-w-6xl mx-auto px-5">
-
-        <div class="text-center mb-14">
-
+        <div class="text-center mb-12">
           <span class="text-green-600 font-bold uppercase text-sm">
             Simulação
           </span>
 
           <h2 class="text-3xl md:text-4xl font-black mt-2">
-            Quanto papel sua escola poderia reaproveitar?
+            Calcule o impacto da reciclagem
           </h2>
 
           <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
-            Escolha uma quantidade de folhas para visualizar
-            uma estimativa de impacto do projeto.
+            Escolha uma quantidade de folhas para visualizar uma estimativa
+            ilustrativa do impacto potencial do reaproveitamento.
           </p>
-
         </div>
 
 
-        <div class="bg-white rounded-3xl shadow-xl p-7 md:p-10">
+        <div class="bg-white rounded-3xl shadow-xl p-6 md:p-10">
 
-          <div class="mb-10">
+          <label for="paperRange" class="font-bold block mb-3">
+            Quantas folhas você pretende reciclar?
+          </label>
 
-            <div class="flex justify-between items-center mb-5">
-
-              <label for="paperRange" class="font-bold">
-                Quantidade de folhas
-              </label>
-
-              <span
-                id="paperValue"
-                class="bg-green-100 text-green-800 font-black px-4 py-2 rounded-lg">
-                500
-              </span>
-
-            </div>
+          <div class="flex items-center gap-4">
 
             <input
               id="paperRange"
               type="range"
-              min="50"
-              max="5000"
-              value="500"
-              step="50"
-              class="w-full accent-green-600">
+              min="10"
+              max="10000"
+              value="1000"
+              step="10"
+              class="w-full accent-green-600"
+            >
 
-            <div class="flex justify-between text-xs text-gray-400 mt-2">
-              <span>50 folhas</span>
-              <span>5.000 folhas</span>
-            </div>
+            <span
+              id="paperValue"
+              class="font-black text-green-700 text-xl min-w-[90px] text-right">
+              1.000
+            </span>
 
           </div>
 
 
-          <div class="grid md:grid-cols-3 gap-5">
+          <div class="grid md:grid-cols-3 gap-5 mt-10">
 
-            <div class="bg-green-50 rounded-2xl p-6">
+            <div class="bg-green-50 rounded-2xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto rounded-xl bg-green-100 flex items-center justify-center">
+                <i data-lucide="droplets" class="text-green-700"></i>
+              </div>
 
-              <i data-lucide="droplets" class="text-blue-500 mb-4"></i>
-
-              <p class="text-sm text-gray-500">
-                Água potencialmente economizada*
+              <p class="text-sm text-gray-500 mt-4">
+                Economia estimada de água
               </p>
 
-              <p id="waterResult" class="text-3xl font-black text-green-800 mt-2">
-                150 L
+              <p id="waterResult" class="text-3xl font-black text-green-700 mt-1">
+                300 L
               </p>
-
             </div>
 
 
-            <div class="bg-green-50 rounded-2xl p-6">
+            <div class="bg-green-50 rounded-2xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto rounded-xl bg-green-100 flex items-center justify-center">
+                <i data-lucide="trees" class="text-green-700"></i>
+              </div>
 
-              <i data-lucide="tree-pine" class="text-green-700 mb-4"></i>
-
-              <p class="text-sm text-gray-500">
-                Equivalente estimado em árvores*
+              <p class="text-sm text-gray-500 mt-4">
+                Árvores equivalentes
               </p>
 
-              <p id="treeResult" class="text-3xl font-black text-green-800 mt-2">
-                0,05
+              <p id="treeResult" class="text-3xl font-black text-green-700 mt-1">
+                0,10
               </p>
-
             </div>
 
 
-            <div class="bg-green-50 rounded-2xl p-6">
+            <div class="bg-green-50 rounded-2xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto rounded-xl bg-green-100 flex items-center justify-center">
+                <i data-lucide="sprout" class="text-green-700"></i>
+              </div>
 
-              <i data-lucide="sprout" class="text-green-600 mb-4"></i>
-
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 mt-4">
                 Sementes possíveis
               </p>
 
-              <p id="seedResult" class="text-3xl font-black text-green-800 mt-2">
-                500
+              <p id="seedResult" class="text-3xl font-black text-green-700 mt-1">
+                1.000
               </p>
-
             </div>
 
           </div>
 
-
-          <p class="text-xs text-gray-400 mt-6">
-            *Valores meramente ilustrativos para a apresentação.
-            Os números reais devem ser calculados com dados do processo
-            produtivo e fontes técnicas confiáveis.
+          <p class="text-xs text-gray-400 text-center mt-8">
+            *Valores meramente ilustrativos para demonstração do projeto.
+            Os resultados reais dependem do processo, dos materiais e da escala de produção.
           </p>
 
         </div>
 
       </div>
-
     </section>
 
 
-    <!-- ================= PROBLEMA ================= -->
+    <!-- ================= PROBLEM ================= -->
+    <section id="problema" class="py-20 bg-white">
 
-    <section id="problema" class="py-24 bg-gray-100">
+      <div class="max-w-7xl mx-auto px-5">
+
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+          <div>
+
+            <span class="text-green-600 font-bold uppercase text-sm">
+              O problema
+            </span>
+
+            <h2 class="text-3xl md:text-4xl font-black mt-2">
+              Muito papel ainda termina no lugar errado.
+            </h2>
+
+            <p class="text-gray-600 mt-6 leading-relaxed">
+              Escolas, empresas e residências utilizam grandes quantidades de papel.
+              Quando esse material não é separado corretamente, ele pode acabar
+              sendo descartado sem aproveitamento.
+            </p>
+
+            <p class="text-gray-600 mt-4 leading-relaxed">
+              O REPAVE busca transformar esse problema em oportunidade,
+              criando um processo de reaproveitamento que também pode gerar
+              educação ambiental e novos produtos.
+            </p>
+
+          </div>
+
+
+          <div class="grid sm:grid-cols-2 gap-5">
+
+            <div class="card-hover bg-gray-50 border rounded-2xl p-6">
+              <i data-lucide="trash-2" class="text-green-600 w-9 h-9"></i>
+
+              <h3 class="font-bold text-lg mt-5">
+                Descarte
+              </h3>
+
+              <p class="text-gray-600 text-sm mt-2">
+                Papel usado que poderia ser reaproveitado acaba sendo descartado.
+              </p>
+            </div>
+
+
+            <div class="card-hover bg-gray-50 border rounded-2xl p-6">
+              <i data-lucide="tree-pine" class="text-green-600 w-9 h-9"></i>
+
+              <h3 class="font-bold text-lg mt-5">
+                Recursos
+              </h3>
+
+              <p class="text-gray-600 text-sm mt-2">
+                A produção de papel utiliza recursos naturais e energia.
+              </p>
+            </div>
+
+
+            <div class="card-hover bg-gray-50 border rounded-2xl p-6">
+              <i data-lucide="school" class="text-green-600 w-9 h-9"></i>
+
+              <h3 class="font-bold text-lg mt-5">
+                Educação
+              </h3>
+
+              <p class="text-gray-600 text-sm mt-2">
+                A reciclagem também pode ser utilizada para ensinar sustentabilidade.
+              </p>
+            </div>
+
+
+            <div class="card-hover bg-gray-50 border rounded-2xl p-6">
+              <i data-lucide="lightbulb" class="text-green-600 w-9 h-9"></i>
+
+              <h3 class="font-bold text-lg mt-5">
+                Oportunidade
+              </h3>
+
+              <p class="text-gray-600 text-sm mt-2">
+                Resíduos podem se transformar em matéria-prima para novos produtos.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= PROCESS ================= -->
+    <section id="processo" class="py-20 bg-gray-50">
 
       <div class="max-w-7xl mx-auto px-5">
 
         <div class="text-center mb-14">
-
-          <span class="text-green-600 font-bold uppercase text-sm">
-            O problema
-          </span>
-
-          <h2 class="text-3xl md:text-4xl font-black mt-2">
-            O papel usado não precisa virar lixo.
-          </h2>
-
-          <p class="max-w-2xl mx-auto text-gray-600 mt-4">
-            Escolas, empresas e instituições utilizam grandes
-            quantidades de papel. Quando esse material é descartado
-            sem reaproveitamento, perde-se uma oportunidade de
-            criar um novo ciclo.
-          </p>
-
-        </div>
-
-
-        <div class="grid md:grid-cols-3 gap-7">
-
-          <div class="bg-white rounded-3xl p-8 shadow-sm card-hover">
-
-            <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-6">
-              <i data-lucide="trash-2"></i>
-            </div>
-
-            <h3 class="text-xl font-black mb-3">
-              Desperdício
-            </h3>
-
-            <p class="text-gray-600">
-              Folhas utilizadas apenas de um lado ou que já não
-              possuem utilidade podem acabar sendo descartadas.
-            </p>
-
-          </div>
-
-
-          <div class="bg-white rounded-3xl p-8 shadow-sm card-hover">
-
-            <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center mb-6">
-              <i data-lucide="school"></i>
-            </div>
-
-            <h3 class="text-xl font-black mb-3">
-              Consumo escolar
-            </h3>
-
-            <p class="text-gray-600">
-              Cadernos, atividades e materiais impressos fazem
-              parte da rotina de milhares de estudantes.
-            </p>
-
-          </div>
-
-
-          <div class="bg-white rounded-3xl p-8 shadow-sm card-hover">
-
-            <div class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mb-6">
-              <i data-lucide="leaf"></i>
-            </div>
-
-            <h3 class="text-xl font-black mb-3">
-              Oportunidade
-            </h3>
-
-            <p class="text-gray-600">
-              O REPAVE propõe transformar esse material em novos
-              produtos úteis e educativos.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= PROCESSO ================= -->
-
-    <section id="processo" class="py-24 bg-white">
-
-      <div class="max-w-7xl mx-auto px-5">
-
-        <div class="text-center mb-16">
 
           <span class="text-green-600 font-bold uppercase text-sm">
             Como funciona
           </span>
 
           <h2 class="text-3xl md:text-4xl font-black mt-2">
-            Do papel usado para um novo produto
+            Do papel usado a uma nova folha
           </h2>
 
         </div>
 
 
-        <div class="grid md:grid-cols-5 gap-6">
+        <div class="grid md:grid-cols-4 gap-6">
 
-          <div class="text-center">
-
-            <div class="mx-auto w-16 h-16 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-black text-xl">
+          <div class="relative bg-white rounded-2xl p-6 border card-hover">
+            <div class="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center font-black text-xl">
               1
             </div>
 
-            <h3 class="font-black mt-5">
+            <h3 class="font-bold text-lg mt-5">
               Coleta
             </h3>
 
-            <p class="text-sm text-gray-500 mt-2">
-              Recolhemos papéis que seriam descartados.
+            <p class="text-gray-600 text-sm mt-2">
+              Reunimos papéis usados que seriam descartados.
             </p>
-
           </div>
 
 
-          <div class="text-center">
-
-            <div class="mx-auto w-16 h-16 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-black text-xl">
+          <div class="bg-white rounded-2xl p-6 border card-hover">
+            <div class="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center font-black text-xl">
               2
             </div>
 
-            <h3 class="font-black mt-5">
-              Separação
+            <h3 class="font-bold text-lg mt-5">
+              Preparação
             </h3>
 
-            <p class="text-sm text-gray-500 mt-2">
-              O material é separado e preparado.
+            <p class="text-gray-600 text-sm mt-2">
+              O papel é separado, picado e preparado para a reciclagem.
             </p>
-
           </div>
 
 
-          <div class="text-center">
-
-            <div class="mx-auto w-16 h-16 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-black text-xl">
+          <div class="bg-white rounded-2xl p-6 border card-hover">
+            <div class="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center font-black text-xl">
               3
             </div>
 
-            <h3 class="font-black mt-5">
-              Trituração
+            <h3 class="font-bold text-lg mt-5">
+              Transformação
             </h3>
 
-            <p class="text-sm text-gray-500 mt-2">
-              O papel é transformado em fibras.
+            <p class="text-gray-600 text-sm mt-2">
+              O material é transformado em uma nova massa de papel.
             </p>
-
           </div>
 
 
-          <div class="text-center">
-
-            <div class="mx-auto w-16 h-16 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-black text-xl">
+          <div class="bg-white rounded-2xl p-6 border card-hover">
+            <div class="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center font-black text-xl">
               4
             </div>
 
-            <h3 class="font-black mt-5">
-              Formação
-            </h3>
-
-            <p class="text-sm text-gray-500 mt-2">
-              A polpa é transformada em novas folhas.
-            </p>
-
-          </div>
-
-
-          <div class="text-center">
-
-            <div class="mx-auto w-16 h-16 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-black text-xl">
-              5
-            </div>
-
-            <h3 class="font-black mt-5">
+            <h3 class="font-bold text-lg mt-5">
               Novo produto
             </h3>
 
-            <p class="text-sm text-gray-500 mt-2">
-              O papel pode virar caderno ou papel-semente.
+            <p class="text-gray-600 text-sm mt-2">
+              A massa pode se transformar em folhas, cartões e papel-semente.
             </p>
-
           </div>
 
         </div>
 
       </div>
-
     </section>
 
 
-    <!-- ================= PRODUTOS ================= -->
-
-    <section id="produtos" class="py-24 bg-green-50">
+    <!-- ================= PRODUCTS ================= -->
+    <section id="produtos" class="py-20 bg-white">
 
       <div class="max-w-7xl mx-auto px-5">
 
         <div class="text-center mb-14">
 
           <span class="text-green-600 font-bold uppercase text-sm">
-            Produtos
+            Nossos produtos
           </span>
 
           <h2 class="text-3xl md:text-4xl font-black mt-2">
-            O que podemos criar
+            O que podemos criar?
           </h2>
+
+          <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
+            A proposta pode começar com folhas recicladas e evoluir
+            para diferentes produtos sustentáveis.
+          </p>
 
         </div>
 
 
         <div class="grid md:grid-cols-3 gap-7">
 
-          <!-- Produto 1 -->
+          <div class="card-hover border rounded-3xl p-7 bg-gray-50">
 
-          <div class="bg-white rounded-3xl overflow-hidden shadow-sm card-hover">
-
-            <div class="h-40 bg-green-200 flex items-center justify-center">
-              <i data-lucide="book-open" class="w-20 h-20 text-green-800"></i>
+            <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center">
+              <i data-lucide="file-text" class="text-green-700"></i>
             </div>
 
-            <div class="p-7">
+            <h3 class="font-black text-xl mt-6">
+              Folhas recicladas
+            </h3>
 
-              <h3 class="text-2xl font-black">
-                Caderno sustentável
-              </h3>
-
-              <p class="text-gray-600 mt-3">
-                Cadernos produzidos utilizando folhas recicladas,
-                com foco no uso escolar.
-              </p>
-
-              <span class="inline-block mt-5 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold">
-                Educação
-              </span>
-
-            </div>
+            <p class="text-gray-600 mt-3">
+              Folhas para atividades, rascunhos, cartões e outros usos.
+            </p>
 
           </div>
 
 
-          <!-- Produto 2 -->
+          <div class="card-hover border rounded-3xl p-7 bg-green-50">
 
-          <div class="bg-white rounded-3xl overflow-hidden shadow-sm card-hover">
-
-            <div class="h-40 bg-yellow-100 flex items-center justify-center">
-              <i data-lucide="sprout" class="w-20 h-20 text-green-700"></i>
+            <div class="w-14 h-14 rounded-2xl bg-green-200 flex items-center justify-center">
+              <i data-lucide="sprout" class="text-green-700"></i>
             </div>
 
-            <div class="p-7">
+            <h3 class="font-black text-xl mt-6">
+              Papel-semente
+            </h3>
 
-              <h3 class="text-2xl font-black">
-                Papel-semente
-              </h3>
-
-              <p class="text-gray-600 mt-3">
-                Papel artesanal que pode receber sementes adequadas
-                para plantio.
-              </p>
-
-              <span class="inline-block mt-5 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-bold">
-                Hortaliças
-              </span>
-
-            </div>
+            <p class="text-gray-600 mt-3">
+              Papel que pode receber sementes durante o processo,
+              permitindo uma segunda utilização por meio do plantio.
+            </p>
 
           </div>
 
 
-          <!-- Produto 3 -->
+          <div class="card-hover border rounded-3xl p-7 bg-gray-50">
 
-          <div class="bg-white rounded-3xl overflow-hidden shadow-sm card-hover">
-
-            <div class="h-40 bg-pink-100 flex items-center justify-center">
-              <i data-lucide="flower-2" class="w-20 h-20 text-pink-600"></i>
+            <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center">
+              <i data-lucide="book-open" class="text-green-700"></i>
             </div>
 
-            <div class="p-7">
+            <h3 class="font-black text-xl mt-6">
+              Cadernos
+            </h3>
 
-              <h3 class="text-2xl font-black">
-                Papel-semente floral
-              </h3>
-
-              <p class="text-gray-600 mt-3">
-                Uma alternativa criativa para cartões, lembranças,
-                embalagens e ações educativas.
-              </p>
-
-              <span class="inline-block mt-5 bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm font-bold">
-                Flores
-              </span>
-
-            </div>
+            <p class="text-gray-600 mt-3">
+              Possibilidade de utilizar as folhas recicladas
+              na produção de pequenos cadernos e materiais escolares.
+            </p>
 
           </div>
 
         </div>
 
       </div>
-
     </section>
 
 
     <!-- ================= PREFEITURAS ================= -->
+    <section id="prefeituras" class="py-20 bg-green-800 text-white">
 
-    <section id="prefeitura" class="py-24">
+      <div class="max-w-7xl mx-auto px-5">
 
-      <div class="max-w-6xl mx-auto px-5">
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
 
-        <div class="gradient rounded-[2rem] text-white p-8 md:p-14">
+          <div>
 
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <span class="text-green-300 font-bold uppercase text-sm">
+              Parcerias
+            </span>
 
-            <div>
+            <h2 class="text-3xl md:text-4xl font-black mt-2">
+              Uma solução que pode começar na escola e chegar à comunidade.
+            </h2>
 
-              <span class="text-green-200 uppercase font-bold text-sm">
-                Para prefeituras e escolas
-              </span>
-
-              <h2 class="text-3xl md:text-5xl font-black mt-3">
-                Transforme desperdício em oportunidade.
-              </h2>
-
-              <p class="text-green-50 mt-6 text-lg leading-relaxed">
-                O REPAVE pode ser utilizado como projeto de educação
-                ambiental, cole
+            <p class="text-green-50 mt-6 text-lg leading-relaxed">
+              O REPAVE pode ser utilizado como projeto de educação ambiental,
+              cole
